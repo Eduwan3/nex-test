@@ -1,58 +1,87 @@
-
 				<div class="col-md-8 col-12 py-3">
 					<div class="row mb-3">
 						<div class="col-6 text-center"><i class="fas fa-arrow-up fa-3x pointer subir"></i></div>
 						<div class="col-6 text-center"><i class="fas fa-arrow-down fa-3x pointer bajar"></i></div>
 					</div>
-		        <?php
-		        	// $datos = unserialize(file_get_contents("db.txt"));
-		            // var_dump($tareas);
+				<?php if ($tareas != null){
 
-		        	// foreach ($data as $key => $tarea) {
-		         //        echo "<li>" . htmlentities($tarea['nombre']) . "</li>";
-		        	// }
-		        echo '<div id="tareas" data-seleccionado="" class="px-3">';
-		        foreach ($tareas as $row){
-		        echo "<div class='row justify-content-center' data-id='".$row['id']."'>
-		        	 	<div class='col-6 py-1 text-right'><span class='tarea pointer'>"
-		        	 	 .  htmlentities($row['nombre']) .
-		        	 	"</span></div>
-		        	 	<div class='col-6 py-1 text-left'>
-		        	 		<i class='fas fa-trash pointer delete fa-2x'></i>
-		        	 	</div>";
-		        echo '</div>';
+		        	echo '<div id="tareas" data-seleccionado="" class="px-3">';
+		        	foreach ($tareas as $row){
+				        echo "<div class='row justify-content-center' data-id='".$row['id']."'>
+				        	 	<div class='col-6 py-1 text-right'><span class='tarea pointer'>"
+				        	 	 .  htmlentities($row['nombre']) .
+				        	 	"</span></div>
+				        	 	<div class='col-6 py-1 text-left'>
+				        	 		<i class='fas fa-trash pointer delete fa-2x'></i>
+				        	 	</div>";
+				        echo '</div>';
+						}
+				    echo '</div>';
+
+
+			       	echo form_open('', ['id' => 'add_form']);
+			        echo '<div class="form-group">';
+			        echo form_label('Nueva tarea', 'nombre');
+			        echo form_input(
+			        	[
+			        		'id' => 'nombre',
+			        		'name' => 'nombre',
+			        		'placeholder' => 'Nueva Tarea',
+			        		'class' => 'form-control',
+			        		'required' => 'required',
+			        	]);
+			        echo '</div>';
+
+			        echo '<div class="form-group">';
+			        echo form_label('Orden', 'orden');
+			        echo form_input(
+			        	[
+			        		'id' => 'orden',
+			        		'name' => 'orden',
+			        		'placeholder' => 'Orden',
+			        		'class' => 'form-control',
+			        		'required' => 'required',
+			        	]);
+			        echo '</div>';
+
+			        echo form_submit('add_tarea', 'Añadir Tarea', ['id' => 'add_tarea', 'class' => 'btn btn-dark']);
+			        
+			        echo form_close();
+
+				}else{
+					echo '<div id="tareas">';
+					echo '<h1 class="text-center">No existen tareas</h1>';
+					echo '</div>';
+
+					echo form_open('', ['id' => 'add_form']);
+			        echo '<div class="form-group">';
+			        echo form_label('Nueva tarea', 'nombre');
+			        echo form_input(
+			        	[
+			        		'id' => 'nombre',
+			        		'name' => 'nombre',
+			        		'placeholder' => 'Nueva Tarea',
+			        		'class' => 'form-control',
+			        		'required' => 'required',
+			        	]);
+			        echo '</div>';
+
+			        echo '<div class="form-group">';
+			        echo form_label('Orden', 'orden');
+			        echo form_input(
+			        	[
+			        		'id' => 'orden',
+			        		'name' => 'orden',
+			        		'placeholder' => 'Orden',
+			        		'class' => 'form-control',
+			        		'required' => 'required',
+			        	]);
+			        echo '</div>';
+
+			        echo form_submit('add_tarea', 'Añadir Tarea', ['id' => 'add_tarea', 'class' => 'btn btn-dark']);
+			        
+			        echo form_close();
 				}
-		        echo '</div>';
-
-
-		       	echo form_open('', ['id' => 'add_form']);
-		        echo '<div class="form-group">';
-		        echo form_label('Nueva tarea', 'nombre');
-		        echo form_input(
-		        	[
-		        		'id' => 'nombre',
-		        		'name' => 'nombre',
-		        		'placeholder' => 'Nueva Tarea',
-		        		'class' => 'form-control',
-		        		'required' => 'required',
-		        	]);
-		        echo '</div>';
-
-		        echo '<div class="form-group">';
-		        echo form_label('Orden', 'orden');
-		        echo form_input(
-		        	[
-		        		'id' => 'orden',
-		        		'name' => 'orden',
-		        		'placeholder' => 'Orden',
-		        		'class' => 'form-control',
-		        		'required' => 'required',
-		        	]);
-		        echo '</div>';
-
-		        echo form_submit('add_tarea', 'Añadir Tarea', ['id' => 'add_tarea', 'class' => 'btn btn-dark']);
-		        
-		        echo form_close();
 		        ?>
 		        <hr/>
 		       

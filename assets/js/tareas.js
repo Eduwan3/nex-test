@@ -80,6 +80,7 @@ function eliminar(e, element) {
 		dataType : "JSON",
 		data : {id:id},
 		success: function(data){
+			// console.log(data);
 			Swal.fire({
 			  icon: 'success',
 			  title: 'Tarea Eliminada!',
@@ -91,7 +92,7 @@ function eliminar(e, element) {
 	return false;
 }
 
-function listTareas(id_seleccionado){
+function listTareas(id_seleccionado = false){
 	$.ajax({
 		type  : 'ajax',
 		// url   : '<?=base_url("tareas/show");?>',
@@ -99,19 +100,24 @@ function listTareas(id_seleccionado){
 		dataType : 'JSON',
 		success : function(data){
 			var html = '';
-			var i;
-			for(i=0; i<data.length; i++){
-				if (data[i].id == id_seleccionado){
-					html += "<div class='row justify-content-center bordeado' data-id='"+data[i].id+"'>";
-	    	 		html += 	"<div class='col-6 py-1 text-right'><span class='tarea pointer'>"+data[i].nombre+"</span></div>";
-	    	 		html += 	"<div class='col-6 py-1 text-left'><i class='fas fa-trash pointer delete fa-2x'></i></div>";
-	    	 		html += "</div>";
-				}else{
-					html += "<div class='row justify-content-center' data-id='"+data[i].id+"'>";
-	    	 		html += 	"<div class='col-6 py-1 text-right'><span class='tarea pointer'>"+data[i].nombre+"</span></div>";
-	    	 		html += 	"<div class='col-6 py-1 text-left'><i class='fas fa-trash pointer delete fa-2x'></i></div>";
-	    	 		html += "</div>";
-	    	 	}
+			if (data == null){
+				$('.flechas').removeClass('d-none');
+				html += '<h1 class="text-center">Has eliminado todas las tareas</h1>';
+			}else{
+				var i;
+				for(i=0; i<data.length; i++){
+					if (data[i].id == id_seleccionado){
+						html += "<div class='row justify-content-center bordeado' data-id='"+data[i].id+"'>";
+		    	 		html += 	"<div class='col-6 py-1 text-right'><span class='tarea pointer'>"+data[i].nombre+"</span></div>";
+		    	 		html += 	"<div class='col-6 py-1 text-left'><i class='fas fa-trash pointer delete fa-2x'></i></div>";
+		    	 		html += "</div>";
+					}else{
+						html += "<div class='row justify-content-center' data-id='"+data[i].id+"'>";
+		    	 		html += 	"<div class='col-6 py-1 text-right'><span class='tarea pointer'>"+data[i].nombre+"</span></div>";
+		    	 		html += 	"<div class='col-6 py-1 text-left'><i class='fas fa-trash pointer delete fa-2x'></i></div>";
+		    	 		html += "</div>";
+		    	 	}
+				}
 			}
 			$('#tareas').html(html);					
 			$(".delete").off("click");

@@ -13,10 +13,10 @@ class Tareas extends CI_Controller{
 
 		$data['tareas']=$this->TareasModel->get_tareas();
 		// var_dump($data);
-
-		$this->load->view('templates/cabecera');
-		$this->load->view('nex_test', $data);
-		$this->load->view('templates/scripts');
+// var_dump($data); die();
+			$this->load->view('templates/cabecera');
+			$this->load->view('nex_test', $data);
+			$this->load->view('templates/scripts');
 	}
 	function show(){
 		$data['tareas']=$this->TareasModel->get_tareas();

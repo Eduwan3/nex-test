@@ -35,23 +35,6 @@ class TareasModel extends CI_Model{
 		return $result;
 	}
 
-	function update(){
-		$id=$this->input->post('id');
-		$name=$this->input->post('name');
-		$age=$this->input->post('age');
-		$designation=$this->input->post('designation');
-		$skills=$this->input->post('skills');
-		$address=$this->input->post('address');
-		$this->db->set('name', $name);
-		$this->db->set('age', $age);
-		$this->db->set('designation', $designation);
-		$this->db->set('skills', $skills);
-		$this->db->set('address', $address);
-		$this->db->where('id', $id);
-		$result=$this->db->update('emp');
-		return $result;	
-	}
-
 	function delete(){
 		$id=$this->input->post('id');
 		$this->db->where('id', $id);
@@ -87,7 +70,11 @@ class TareasModel extends CI_Model{
 			{
 		        $tarea_desplazada['id']=$row->id;
 		        $tarea_desplazada['nombre']=$row->nombre;
-		        $tarea_desplazada['orden']=$row->orden;
+		        if ($tarea_seleccionada['orden'] == $row->orden){
+		        	$tarea_desplazada['orden'] = $tarea_seleccionada['orden'] + 1;
+		        }else{
+		        	$tarea_desplazada['orden'] = $row->orden;
+		        }
 			}
 			$this->db->set('orden', $tarea_desplazada['orden']);
 			$this->db->where('id', $id);
@@ -129,7 +116,12 @@ class TareasModel extends CI_Model{
 			{
 		        $tarea_desplazada['id']=$row->id;
 		        $tarea_desplazada['nombre']=$row->nombre;
-		        $tarea_desplazada['orden']=$row->orden;
+		        if ($tarea_seleccionada['orden'] == $row->orden){
+		        	$tarea_desplazada['orden'] = $tarea_seleccionada['orden'] - 1;
+		        }else{
+		        	$tarea_desplazada['orden'] = $row->orden;
+		        }
+		        
 			}
 			$this->db->set('orden', $tarea_desplazada['orden']);
 			$this->db->where('id', $id);
